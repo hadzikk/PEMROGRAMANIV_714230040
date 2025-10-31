@@ -1,0 +1,17 @@
+import 'package:flutter/material.dart';
+
+class AppDrawer extends StatelessWidget {
+  const AppDrawer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      child: ListView(
+        children: [
+          ListTile(title: Text('Apps')),
+          ListTile(title: Text('Settings'))
+        ]
+      ),
+    );
+  }
+}
