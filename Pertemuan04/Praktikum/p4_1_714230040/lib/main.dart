@@ -13,7 +13,10 @@ class App extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Tempat Wisata Bandung',
-      theme: ThemeData.dark(),
+      theme: ThemeData(
+        useMaterial3: false,
+        fontFamily: 'Work Sans',
+      ),
       home: DetailScreen(),
     );
   }
