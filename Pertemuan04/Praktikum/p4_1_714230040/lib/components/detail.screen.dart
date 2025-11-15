@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_2/components/tourism_place.dart';
 
 class DetailScreen extends StatelessWidget {
-  const DetailScreen({super.key});
+  final TourismPlace place;
+
+  const DetailScreen({super.key, required this.place});
 
   @override
   Widget build(BuildContext context) {
@@ -11,11 +14,26 @@ class DetailScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Image.asset('images/ranca-upas.jpg'),
+              Stack(
+                children: <Widget>[
+                  Image.asset(place.imageAsset),
+                  SafeArea(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: CircleAvatar(
+                        backgroundColor: Colors.grey,
+                        child: IconButton(icon: const Icon(Icons.arrow_back), color: Colors.white, onPressed: () {
+                          Navigator.pop(context);
+                        }),
+                      ),
+                    ),
+                  )
+                ],
+              ),
               Container(
                 margin: EdgeInsets.only(top: 16.0),
                 child: Text(
-                  'Ranca Upas',
+                  place.name,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 30.0,
@@ -61,47 +79,22 @@ class DetailScreen extends StatelessWidget {
                   ),
               ),
               SizedBox(
-  height: 150,
-  child: ListView(
-    scrollDirection: Axis.horizontal,
-    children: [
-      Padding(
-        padding: const EdgeInsets.all(4.0),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(12),
-          child: Image.network(
-            'https://images.pexels.com/photos/6136353/pexels-photo-6136353.jpeg',
-            fit: BoxFit.cover,
-            width: 200,
-          ),
-        ),
-      ),
-      Padding(
-        padding: const EdgeInsets.all(4.0),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(12),
-          child: Image.network(
-            'https://images.pexels.com/photos/5718325/pexels-photo-5718325.jpeg',
-            fit: BoxFit.cover,
-            width: 200,
-          ),
-        ),
-      ),
-      Padding(
-        padding: const EdgeInsets.all(4.0),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(12),
-          child: Image.network(
-            'https://images.pexels.com/photos/3987418/pexels-photo-3987418.jpeg',
-            fit: BoxFit.cover,
-            width: 200,
-          ),
-        ),
-      ),
-    ],
-  ),
-)
-
+                height: 150,
+                child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: place.imageUrls.map((url) {
+                  return Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: AspectRatio(aspectRatio: 16 / 9,
+                      child: Image.network(url, fit: BoxFit.cover,)
+                      ),
+                      ),
+                    );
+                  }).toList(),
+                ),
+              ),
             ],
           ),
         ),
